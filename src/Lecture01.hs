@@ -246,8 +246,11 @@ someArithmeticCalculations =
     - если n > 0, то "positive"
     - если n < 0, то "negative"
 -}
+
 tellSign :: Int -> String
-tellSign n = error "not implemented"
+tellSign n | n >  0  = "positive"
+         | n == 0  =  "zero"
+         | otherwise = "negative"
 
 {-
   `howManyDigits` возвращает количество цифр целого числа `n`:
@@ -255,8 +258,12 @@ tellSign n = error "not implemented"
     - если n = 12, то "two-digit"
     - если n >= 100, то "three-digit or more"
 -}
+
 howManyDigits :: Int -> String
-howManyDigits n = error "not implemented"
+howManyDigits n | (div (abs(n)) 10) == 0 = "single"
+         | (div (div (abs(n)) 10) 10) == 0 = "two-digit"
+         | otherwise = "three-digit or more"
+
 
 {-
   `describeNumber` возвращает полное описание целого числа, используя
@@ -266,8 +273,17 @@ howManyDigits n = error "not implemented"
     - если n = -12, то "negative two-digit"
     - если n >= 100, то "positive three-digit or more"
 -}
+
+
 describeNumber :: Int -> String
-describeNumber n = error "not implemented"
+describeNumber n | tellSign(n) == "zero" = "zero single"
+                 | (tellSign(n) == "positive" && howManyDigits(n) == "single") = "positive single"
+                 | (tellSign(n) == "negative" && howManyDigits(n) == "two-digit") = "negative two-digit"
+                 | (tellSign(n) == "positive" && howManyDigits(n) == "two-digit") = "positive two-digit"
+                 | (tellSign(n) == "negative" && howManyDigits(n) == "single") = "negative single"
+                 | (tellSign(n) == "negative" && howManyDigits(n) == "three-digit or more") = "negative three-digit or more"
+                 | otherwise = "positive three-digit or more"
+
 
 -- </Задачи для самостоятельного решения>
 
@@ -288,7 +304,7 @@ describeNumber n = error "not implemented"
 makeZero :: Int -> Int
 makeZero x =
   if x == 0 then 0 -- если x равен 0, то мы возвращаем 0, это база рекурсии
-  else makeZero (x - 1) -- иначе вызываем саму функцию, уменьшив x на единицу
+  else makeZero (x - 1)  -- иначе вызываем саму функцию, уменьшив x на единицу
 -- ^ это шаг рекурсии
 
 -- <Задачи для самостоятельного решения>
@@ -303,7 +319,9 @@ makeZero x =
   больших чисел.
 -}
 factorial :: Integer -> Integer
-factorial n = error "not implemented"
+factorial n = 
+    if n == 0 then 1
+    else n * factorial(n-1)
 
 {-
   На вход приходит целое число. Необходимо вернуть количество цифр:
@@ -312,7 +330,9 @@ factorial n = error "not implemented"
     - если n = 144545, то 6
 -}
 digitsCount :: Int -> Int
-digitsCount n = error "not implemented"
+digitsCount n =
+    if (div (abs(n)) 10 == 0) then 1
+    else 1 + digitsCount(div n 10)
 
 -- </Задачи для самостоятельного решения>
 
