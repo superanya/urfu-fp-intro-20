@@ -297,8 +297,9 @@ module Lecture03 where
     - not true -> not (λa.λb.a) ->> λa.λb.b
     - not false ->> true
 -}
+
 not :: String
-not = "notimplemented"
+not = "\\x.x false true"
 
 {-
   Напишите терм `and`:
@@ -309,7 +310,7 @@ not = "notimplemented"
     - and false false ->> false
 -}
 and :: String
-and = "notimplemented"
+and = "\\x.\\y.y (x true false) false"
 
 {-
   Напишите терм `or`:
@@ -320,7 +321,7 @@ and = "notimplemented"
     - or false false ->> false
 -}
 or :: String
-or = "notimplemented"
+or = "\\x.\\y.y true (x true false)"
 -- </Задачи для самостоятельного решения>
 
 {-
@@ -373,7 +374,7 @@ or = "notimplemented"
   isZero n = False
 -}
 isZero :: String
-isZero = "notimplemented"
+isZero = "\\x.x (\\y.false) true"
 
 -- </Задачи для самостоятельного решения>
 
@@ -459,7 +460,7 @@ isZero = "notimplemented"
   Что она возвращает? Чему равен pred pred 1?
 -}
 fib :: String
-fib = "notimplemented"
+fib = "Y (\\f.\\n. ifelse ((\\x.x (\\y.false) true) n) (1) (plus (f (pred n)) (f (pred (pred n)))))"
 
 -- </Задачи для самостоятельного решения>
 
